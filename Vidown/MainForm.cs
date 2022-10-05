@@ -17,7 +17,6 @@ namespace Vidown
 #else // Release
         private static bool IsDebug = false;
 #endif
-        private static string videoID = "YGrdLX8eKQY";
         private static string path = @$"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}";
 
         public MainForm()
