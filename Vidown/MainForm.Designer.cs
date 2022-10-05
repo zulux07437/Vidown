@@ -30,7 +30,7 @@ namespace Vidown
         private void InitializeComponent()
         {
             this.TextBox_VideoID = new System.Windows.Forms.TextBox();
-            this.Button_Start = new System.Windows.Forms.Button();
+            this.Button_Get = new System.Windows.Forms.Button();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.MenuStrip_File = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip_File_Settings = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,29 +43,31 @@ namespace Vidown
             this.RadioButton_MP4 = new System.Windows.Forms.RadioButton();
             this.RadioButton_WebmAudio = new System.Windows.Forms.RadioButton();
             this.GroupBox_FileExtension = new System.Windows.Forms.GroupBox();
+            this.ComboBox_Quality = new System.Windows.Forms.ComboBox();
             this.RadioButton_WebmVideo = new System.Windows.Forms.RadioButton();
+            this.Button_Start = new System.Windows.Forms.Button();
             this.MenuStrip.SuspendLayout();
             this.StatusStrip.SuspendLayout();
             this.GroupBox_FileExtension.SuspendLayout();
             this.SuspendLayout();
             // 
-            // TextBox_URL
+            // TextBox_VideoID
             // 
             this.TextBox_VideoID.Location = new System.Drawing.Point(12, 27);
-            this.TextBox_VideoID.Name = "TextBox_URL";
+            this.TextBox_VideoID.Name = "TextBox_VideoID";
             this.TextBox_VideoID.PlaceholderText = "https://youtube.com/watch?v=XXxX0Xxx";
             this.TextBox_VideoID.Size = new System.Drawing.Size(360, 23);
             this.TextBox_VideoID.TabIndex = 0;
             // 
-            // Button_Start
+            // Button_Get
             // 
-            this.Button_Start.Location = new System.Drawing.Point(378, 27);
-            this.Button_Start.Name = "Button_Start";
-            this.Button_Start.Size = new System.Drawing.Size(94, 23);
-            this.Button_Start.TabIndex = 1;
-            this.Button_Start.Text = "Start";
-            this.Button_Start.UseVisualStyleBackColor = true;
-            this.Button_Start.Click += new System.EventHandler(this.Button_Start_Click);
+            this.Button_Get.Location = new System.Drawing.Point(378, 27);
+            this.Button_Get.Name = "Button_Get";
+            this.Button_Get.Size = new System.Drawing.Size(94, 23);
+            this.Button_Get.TabIndex = 1;
+            this.Button_Get.Text = "Get";
+            this.Button_Get.UseVisualStyleBackColor = true;
+            this.Button_Get.Click += new System.EventHandler(this.Button_Get_Click);
             // 
             // MenuStrip
             // 
@@ -104,7 +106,7 @@ namespace Vidown
             // MenuStrip_Help_AboutOfThis
             // 
             this.MenuStrip_Help_AboutOfThis.Name = "MenuStrip_Help_AboutOfThis";
-            this.MenuStrip_Help_AboutOfThis.Size = new System.Drawing.Size(180, 22);
+            this.MenuStrip_Help_AboutOfThis.Size = new System.Drawing.Size(143, 22);
             this.MenuStrip_Help_AboutOfThis.Text = "About of this";
             this.MenuStrip_Help_AboutOfThis.Click += new System.EventHandler(this.MenuStrip_Help_AboutOfThis_Click);
             // 
@@ -168,6 +170,7 @@ namespace Vidown
             // 
             // GroupBox_FileExtension
             // 
+            this.GroupBox_FileExtension.Controls.Add(this.ComboBox_Quality);
             this.GroupBox_FileExtension.Controls.Add(this.RadioButton_WebmVideo);
             this.GroupBox_FileExtension.Controls.Add(this.RadioButton_WebmAudio);
             this.GroupBox_FileExtension.Controls.Add(this.RadioButton_MP4);
@@ -178,6 +181,15 @@ namespace Vidown
             this.GroupBox_FileExtension.TabIndex = 9;
             this.GroupBox_FileExtension.TabStop = false;
             this.GroupBox_FileExtension.Text = "File Extension";
+            // 
+            // ComboBox_Quality
+            // 
+            this.ComboBox_Quality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_Quality.FormattingEnabled = true;
+            this.ComboBox_Quality.Location = new System.Drawing.Point(6, 72);
+            this.ComboBox_Quality.Name = "ComboBox_Quality";
+            this.ComboBox_Quality.Size = new System.Drawing.Size(121, 23);
+            this.ComboBox_Quality.TabIndex = 11;
             // 
             // RadioButton_WebmVideo
             // 
@@ -190,14 +202,26 @@ namespace Vidown
             this.RadioButton_WebmVideo.Text = "Webm (Audio x Video)\r\n";
             this.RadioButton_WebmVideo.UseVisualStyleBackColor = true;
             // 
+            // Button_Start
+            // 
+            this.Button_Start.Enabled = false;
+            this.Button_Start.Location = new System.Drawing.Point(378, 56);
+            this.Button_Start.Name = "Button_Start";
+            this.Button_Start.Size = new System.Drawing.Size(94, 23);
+            this.Button_Start.TabIndex = 10;
+            this.Button_Start.Text = "Start";
+            this.Button_Start.UseVisualStyleBackColor = true;
+            this.Button_Start.Click += new System.EventHandler(this.Button_Start_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 261);
+            this.Controls.Add(this.Button_Start);
             this.Controls.Add(this.GroupBox_FileExtension);
             this.Controls.Add(this.StatusStrip);
-            this.Controls.Add(this.Button_Start);
+            this.Controls.Add(this.Button_Get);
             this.Controls.Add(this.TextBox_VideoID);
             this.Controls.Add(this.MenuStrip);
             this.MainMenuStrip = this.MenuStrip;
@@ -219,7 +243,7 @@ namespace Vidown
         #endregion
 
         private System.Windows.Forms.TextBox TextBox_VideoID;
-        private System.Windows.Forms.Button Button_Start;
+        private System.Windows.Forms.Button Button_Get;
         private System.Windows.Forms.MenuStrip MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem MenuStrip_File;
         private System.Windows.Forms.ToolStripMenuItem MenuStrip_File_Settings;
@@ -233,6 +257,8 @@ namespace Vidown
         private System.Windows.Forms.RadioButton RadioButton_WebmAudio;
         private System.Windows.Forms.GroupBox GroupBox_FileExtension;
         private System.Windows.Forms.RadioButton RadioButton_WebmVideo;
+        private System.Windows.Forms.ComboBox ComboBox_Quality;
+        private System.Windows.Forms.Button Button_Start;
     }
 }
 
