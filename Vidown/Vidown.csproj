@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Company>HaxLabs</Company>
+    <Authors>zulux07437</Authors>
+    <Copyright>Copyright @ 2021-2022, HaxLabs - zulux074347</Copyright>
+    <RepositoryUrl>https://github.com/zulux07437/Vidown</RepositoryUrl>
+    <Version>1.0.0</Version>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="YoutubeExplode" Version="6.2.2" />
+  </ItemGroup>
+
+</Project>
