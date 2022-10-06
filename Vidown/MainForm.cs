@@ -55,7 +55,7 @@ namespace Vidown
             Button_Get.Enabled = false;
             ChangeStatusText("Getting...");
 
-            if (await f.GetVideo(TextBox_VideoID.Text) == false)
+            if (await f.GetVideo(TextBox_VideoID.Text) == false) // If it fails
             {
                 ChangeStatusText("Error");
                 Button_Get.Enabled = true;
@@ -74,7 +74,7 @@ namespace Vidown
             ChangeStatusText("Starting...");
 
             Progress<double> progress = new(Progress_OnProgressChanged);
-            if (await f.DownloadVideo(path, progress, ComboBox_Quality.Text) == false)
+            if (await f.DownloadVideo(path, progress, ComboBox_Quality.Text) == false) // If it fails
             {
                 ChangeStatusText("Error");
                 return;

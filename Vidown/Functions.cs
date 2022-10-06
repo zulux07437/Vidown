@@ -16,7 +16,7 @@ namespace Vidown
         public VideoQuality[] Qualities = null;
 
         /// <summary>
-        /// Get a YouTube video manifest
+        /// Get YouTube video manifest
         /// </summary>
         /// <param name="videoid">YouTube Video ID or URL</param>
         /// <returns></returns>
@@ -46,10 +46,12 @@ namespace Vidown
             #endregion
         }
         /// <summary>
-        /// Download a YouTube video with webm
+        /// Download YouTube video
         /// </summary>
-        /// <param name="videoid">Video ID</param>
         /// <param name="path">Output path</param>
+        /// <param name="progress">Progress</param>
+        /// <param name="quality">Video Quality</param>
+        /// <returns></returns>
         public async Task<bool> DownloadVideo(string path, IProgress<double> progress = null, string quality = "720p")
         {
             try

@@ -46,9 +46,13 @@ namespace Vidown
             this.ComboBox_Quality = new System.Windows.Forms.ComboBox();
             this.RadioButton_WebmVideo = new System.Windows.Forms.RadioButton();
             this.Button_Start = new System.Windows.Forms.Button();
+            this.GroupBox_FileInfo = new System.Windows.Forms.GroupBox();
+            this.Label_Title = new System.Windows.Forms.Label();
+            this.Label_Artist = new System.Windows.Forms.Label();
             this.MenuStrip.SuspendLayout();
             this.StatusStrip.SuspendLayout();
             this.GroupBox_FileExtension.SuspendLayout();
+            this.GroupBox_FileInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // TextBox_VideoID
@@ -177,7 +181,7 @@ namespace Vidown
             this.GroupBox_FileExtension.Controls.Add(this.RadioButton_MP3);
             this.GroupBox_FileExtension.Location = new System.Drawing.Point(12, 56);
             this.GroupBox_FileExtension.Name = "GroupBox_FileExtension";
-            this.GroupBox_FileExtension.Size = new System.Drawing.Size(242, 151);
+            this.GroupBox_FileExtension.Size = new System.Drawing.Size(242, 104);
             this.GroupBox_FileExtension.TabIndex = 9;
             this.GroupBox_FileExtension.TabStop = false;
             this.GroupBox_FileExtension.Text = "File Extension";
@@ -213,11 +217,41 @@ namespace Vidown
             this.Button_Start.UseVisualStyleBackColor = true;
             this.Button_Start.Click += new System.EventHandler(this.Button_Start_Click);
             // 
+            // GroupBox_FileInfo
+            // 
+            this.GroupBox_FileInfo.Controls.Add(this.Label_Artist);
+            this.GroupBox_FileInfo.Controls.Add(this.Label_Title);
+            this.GroupBox_FileInfo.Location = new System.Drawing.Point(260, 78);
+            this.GroupBox_FileInfo.Name = "GroupBox_FileInfo";
+            this.GroupBox_FileInfo.Size = new System.Drawing.Size(212, 158);
+            this.GroupBox_FileInfo.TabIndex = 11;
+            this.GroupBox_FileInfo.TabStop = false;
+            this.GroupBox_FileInfo.Text = "File Info";
+            // 
+            // Label_Title
+            // 
+            this.Label_Title.AutoSize = true;
+            this.Label_Title.Location = new System.Drawing.Point(6, 19);
+            this.Label_Title.Name = "Label_Title";
+            this.Label_Title.Size = new System.Drawing.Size(35, 15);
+            this.Label_Title.TabIndex = 0;
+            this.Label_Title.Text = "Title: ";
+            // 
+            // Label_Artist
+            // 
+            this.Label_Artist.AutoSize = true;
+            this.Label_Artist.Location = new System.Drawing.Point(6, 34);
+            this.Label_Artist.Name = "Label_Artist";
+            this.Label_Artist.Size = new System.Drawing.Size(41, 15);
+            this.Label_Artist.TabIndex = 1;
+            this.Label_Artist.Text = "Artist: ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 261);
+            this.Controls.Add(this.GroupBox_FileInfo);
             this.Controls.Add(this.Button_Start);
             this.Controls.Add(this.GroupBox_FileExtension);
             this.Controls.Add(this.StatusStrip);
@@ -235,6 +269,8 @@ namespace Vidown
             this.StatusStrip.PerformLayout();
             this.GroupBox_FileExtension.ResumeLayout(false);
             this.GroupBox_FileExtension.PerformLayout();
+            this.GroupBox_FileInfo.ResumeLayout(false);
+            this.GroupBox_FileInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,6 +295,9 @@ namespace Vidown
         private System.Windows.Forms.RadioButton RadioButton_WebmVideo;
         private System.Windows.Forms.ComboBox ComboBox_Quality;
         private System.Windows.Forms.Button Button_Start;
+        private System.Windows.Forms.GroupBox GroupBox_FileInfo;
+        private System.Windows.Forms.Label Label_Title;
+        private System.Windows.Forms.Label Label_Artist;
     }
 }
 
