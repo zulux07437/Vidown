@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YoutubeExplode;
 using YoutubeExplode.Videos.Streams;
+using Vidown.CliProcessWrap;
 
 namespace Vidown
 {
@@ -45,46 +45,65 @@ namespace Vidown
             }
             #endregion
         }
-        /// <summary>
-        /// Download YouTube video
-        /// </summary>
-        /// <param name="path">Output path</param>
-        /// <param name="progress">Progress</param>
-        /// <param name="quality">Video Quality</param>
-        /// <returns></returns>
-        public async Task<bool> DownloadVideo(string path, IProgress<double> progress = null, string quality = "720p")
+
+        public async Task<string> DownloadVideo(string path, string quality = "720p", IProgress<double> progress = null)
         {
+            string inputName = null;
             try
             {
-                MuxedStreamInfo stream = manifest.GetMuxedStreams()
-                    .First(s => s.VideoQuality.Label == quality);
+                MuxedStreamInfo stream = manifest.GetMuxedStreams().First(s => s.VideoQuality.Label == quality);
+                inputName = $"input.{stream.Container}";
+                await client.Videos.Streams.DownloadAsync(stream, path + @"\" + inputName, progress);
 
-                await client.Videos.Streams.DownloadAsync(stream, path + $@"\p.{stream.Container}", progress);
-                /* IStreamInfo audioStream = info.GetAudioOnlyStreams().GetWithHighestBitrate();
-                await client.Videos.Streams.DownloadAsync(audioStream, path + @"\temp.webm", progress); */
-
-                return true;
+                return inputName;
             }
             #region catches
             catch (System.UnauthorizedAccessException) // Access denied
             {
                 MessageBox.Show($"Access denied\nCan't access this path: {path}\nRequires Administrator privileges", "Access denied",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
             catch (System.Reflection.TargetInvocationException ex) // Quality not found
             {// Actually it may not be the quality not found error
                 MessageBox.Show(ex.Message, "Quality not found",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
             catch (Exception ex) // Unexpected error
             {
                 MessageBox.Show($"Please report this error to the author:\n\n{ex.Message}", "Unexpected Error!!",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
+            return null;
             #endregion
+        }
+        public async Task<string> DownloadAudio(string path, IProgress<double> progress = null)
+        {
+            string inputName = null;
+            try
+            {
+                IStreamInfo stream = manifest.GetAudioOnlyStreams().GetWithHighestBitrate();
+                inputName = $"input.{stream.Container}";
+                await client.Videos.Streams.DownloadAsync(stream, path + @"\" + inputName, progress);
+
+                return inputName;
+            }
+            #region catches
+            catch (System.UnauthorizedAccessException) // Access denied
+            {
+                MessageBox.Show($"Access denied\nCan't access this path: {path}\nRequires Administrator privileges", "Access denied",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex) // Unexpected error
+            {
+                MessageBox.Show($"Please report this error to the author:\n\n{ex.Message}", "Unexpected Error!!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+            #endregion
+        }
+        public enum Extensions
+        {
+            WebmAudio, WebmVideo, MP3, MP4
         }
     }
 }

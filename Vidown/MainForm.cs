@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vidown.CliProcessWrap;
 
 namespace Vidown
 {
@@ -18,7 +19,10 @@ namespace Vidown
         private readonly static bool IsDebug = false;
 #endif
         private Functions f = new();
-        private readonly static string path = @$"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}";
+        private readonly static string path = @$"{System.IO.Directory.GetCurrentDirectory()}\bin";
+        private static string artistName = null;
+        private static string titleName = null;
+        private static Functions.Extensions extension;
 
         public MainForm()
         {
@@ -70,20 +74,55 @@ namespace Vidown
         }
         private async void Button_Start_Click(object sender, EventArgs e)
         {
-            Button_Start.Enabled = false;
-            ChangeStatusText("Starting...");
-
-            Progress<double> progress = new(Progress_OnProgressChanged);
-            if (await f.DownloadVideo(path, progress, ComboBox_Quality.Text) == false) // If it fails
+            try
             {
-                ChangeStatusText("Error");
-                return;
+                Button_Start.Enabled = false;
+                ChangeStatusText("Starting...");
+                string inputName = "input.webm";
+
+                Progress<double> progress = new(Progress_OnProgressChanged);
+                if (extension == Functions.Extensions.MP3 || extension == Functions.Extensions.WebmAudio || true)
+                {
+                    inputName = await f.DownloadAudio(path, progress);
+                }
+                else if (extension == Functions.Extensions.MP4 || extension == Functions.Extensions.WebmVideo)
+                {
+                    inputName = await f.DownloadVideo(path, ComboBox_Quality.Text, progress);
+                }
+                if (inputName == null) // If it fails
+                {
+                    throw new Exception("Error");
+                }
+
+                ffmpeg.ExtensionConversion($@"{path}\{inputName}", $@"{path}\{artistName} - {titleName}.mp3");
+                System.IO.File.Delete($@"{path}\{inputName}");
+
+                ChangeStatusText("Complete");
+                InitializeInstances();
             }
-
-            ChangeStatusText("Complete");
-            InitializeInstances();
+            catch (Exception ex)
+            {
+                ChangeStatusText(ex.Message);
+            }
         }
-
+        private void TextBox_Artist_TextChanged(object sender, EventArgs e)
+        {
+            artistName = TextBox_Artist.Text;
+            UpdateFileNameLabel();
+        }
+        private void TextBox_Title_TextChanged(object sender, EventArgs e)
+        {
+            titleName = TextBox_Title.Text;
+            UpdateFileNameLabel();
+        }
+        private void UpdateFileNameLabel()
+        {
+            Label_FileName.Text = GetFileName();
+        }
+        private string GetFileName()
+        {
+            return $"{artistName} - {titleName}";
+        }
         private void Progress_OnProgressChanged(double count)
         {
             StatusStrip_ProgressBar.Value = (int)(count * 100); // Multiply by 100 because the highest is 1

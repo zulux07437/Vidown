@@ -47,8 +47,11 @@ namespace Vidown
             this.RadioButton_WebmVideo = new System.Windows.Forms.RadioButton();
             this.Button_Start = new System.Windows.Forms.Button();
             this.GroupBox_FileInfo = new System.Windows.Forms.GroupBox();
-            this.Label_Title = new System.Windows.Forms.Label();
+            this.Label_FileName = new System.Windows.Forms.Label();
+            this.TextBox_Artist = new System.Windows.Forms.TextBox();
+            this.TextBox_Title = new System.Windows.Forms.TextBox();
             this.Label_Artist = new System.Windows.Forms.Label();
+            this.Label_Title = new System.Windows.Forms.Label();
             this.MenuStrip.SuspendLayout();
             this.StatusStrip.SuspendLayout();
             this.GroupBox_FileExtension.SuspendLayout();
@@ -57,6 +60,8 @@ namespace Vidown
             // 
             // TextBox_VideoID
             // 
+            this.TextBox_VideoID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBox_VideoID.Location = new System.Drawing.Point(12, 27);
             this.TextBox_VideoID.Name = "TextBox_VideoID";
             this.TextBox_VideoID.PlaceholderText = "https://youtube.com/watch?v=XXxX0Xxx";
@@ -65,6 +70,7 @@ namespace Vidown
             // 
             // Button_Get
             // 
+            this.Button_Get.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Button_Get.Location = new System.Drawing.Point(378, 27);
             this.Button_Get.Name = "Button_Get";
             this.Button_Get.Size = new System.Drawing.Size(94, 23);
@@ -174,6 +180,9 @@ namespace Vidown
             // 
             // GroupBox_FileExtension
             // 
+            this.GroupBox_FileExtension.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GroupBox_FileExtension.Controls.Add(this.ComboBox_Quality);
             this.GroupBox_FileExtension.Controls.Add(this.RadioButton_WebmVideo);
             this.GroupBox_FileExtension.Controls.Add(this.RadioButton_WebmAudio);
@@ -208,6 +217,7 @@ namespace Vidown
             // 
             // Button_Start
             // 
+            this.Button_Start.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Button_Start.Enabled = false;
             this.Button_Start.Location = new System.Drawing.Point(378, 56);
             this.Button_Start.Name = "Button_Start";
@@ -219,6 +229,12 @@ namespace Vidown
             // 
             // GroupBox_FileInfo
             // 
+            this.GroupBox_FileInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GroupBox_FileInfo.Controls.Add(this.Label_FileName);
+            this.GroupBox_FileInfo.Controls.Add(this.TextBox_Artist);
+            this.GroupBox_FileInfo.Controls.Add(this.TextBox_Title);
             this.GroupBox_FileInfo.Controls.Add(this.Label_Artist);
             this.GroupBox_FileInfo.Controls.Add(this.Label_Title);
             this.GroupBox_FileInfo.Location = new System.Drawing.Point(260, 78);
@@ -228,6 +244,42 @@ namespace Vidown
             this.GroupBox_FileInfo.TabStop = false;
             this.GroupBox_FileInfo.Text = "File Info";
             // 
+            // Label_FileName
+            // 
+            this.Label_FileName.AutoSize = true;
+            this.Label_FileName.Location = new System.Drawing.Point(6, 140);
+            this.Label_FileName.Name = "Label_FileName";
+            this.Label_FileName.Size = new System.Drawing.Size(18, 15);
+            this.Label_FileName.TabIndex = 4;
+            this.Label_FileName.Text = " - ";
+            // 
+            // TextBox_Artist
+            // 
+            this.TextBox_Artist.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TextBox_Artist.Location = new System.Drawing.Point(47, 42);
+            this.TextBox_Artist.Name = "TextBox_Artist";
+            this.TextBox_Artist.Size = new System.Drawing.Size(159, 20);
+            this.TextBox_Artist.TabIndex = 3;
+            this.TextBox_Artist.TextChanged += new System.EventHandler(this.TextBox_Artist_TextChanged);
+            // 
+            // TextBox_Title
+            // 
+            this.TextBox_Title.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TextBox_Title.Location = new System.Drawing.Point(47, 18);
+            this.TextBox_Title.Name = "TextBox_Title";
+            this.TextBox_Title.Size = new System.Drawing.Size(159, 20);
+            this.TextBox_Title.TabIndex = 2;
+            this.TextBox_Title.TextChanged += new System.EventHandler(this.TextBox_Title_TextChanged);
+            // 
+            // Label_Artist
+            // 
+            this.Label_Artist.AutoSize = true;
+            this.Label_Artist.Location = new System.Drawing.Point(6, 45);
+            this.Label_Artist.Name = "Label_Artist";
+            this.Label_Artist.Size = new System.Drawing.Size(41, 15);
+            this.Label_Artist.TabIndex = 1;
+            this.Label_Artist.Text = "Artist: ";
+            // 
             // Label_Title
             // 
             this.Label_Title.AutoSize = true;
@@ -236,15 +288,6 @@ namespace Vidown
             this.Label_Title.Size = new System.Drawing.Size(35, 15);
             this.Label_Title.TabIndex = 0;
             this.Label_Title.Text = "Title: ";
-            // 
-            // Label_Artist
-            // 
-            this.Label_Artist.AutoSize = true;
-            this.Label_Artist.Location = new System.Drawing.Point(6, 34);
-            this.Label_Artist.Name = "Label_Artist";
-            this.Label_Artist.Size = new System.Drawing.Size(41, 15);
-            this.Label_Artist.TabIndex = 1;
-            this.Label_Artist.Text = "Artist: ";
             // 
             // MainForm
             // 
@@ -259,6 +302,7 @@ namespace Vidown
             this.Controls.Add(this.TextBox_VideoID);
             this.Controls.Add(this.MenuStrip);
             this.MainMenuStrip = this.MenuStrip;
+            this.MinimumSize = new System.Drawing.Size(500, 300);
             this.Name = "MainForm";
             this.Text = "Vidown";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -298,6 +342,9 @@ namespace Vidown
         private System.Windows.Forms.GroupBox GroupBox_FileInfo;
         private System.Windows.Forms.Label Label_Title;
         private System.Windows.Forms.Label Label_Artist;
+        private System.Windows.Forms.TextBox TextBox_Artist;
+        private System.Windows.Forms.TextBox TextBox_Title;
+        private System.Windows.Forms.Label Label_FileName;
     }
 }
 
