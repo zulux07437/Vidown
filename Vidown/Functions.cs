@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using YoutubeExplode;
 using YoutubeExplode.Videos.Streams;
-using Vidown.CliProcessWrap;
+using Vidown.Wrapper;
 
 namespace Vidown
 {
