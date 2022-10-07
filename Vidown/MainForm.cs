@@ -117,11 +117,7 @@ namespace Vidown
         }
         private void UpdateFileNameLabel()
         {
-            Label_FileName.Text = GetFileName();
-        }
-        private string GetFileName()
-        {
-            return $"{artistName} - {titleName}";
+            Label_FileName.Text = $"{artistName} - {titleName}";
         }
         private void Progress_OnProgressChanged(double count)
         {
