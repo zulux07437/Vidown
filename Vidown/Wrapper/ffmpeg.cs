@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vidown.CliProcessWrap
+namespace Vidown.Wrapper
 {
     public class ffmpeg
     {

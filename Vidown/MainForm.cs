@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Vidown.CliProcessWrap;
+using Vidown.Wrapper;
 
 namespace Vidown
 {
