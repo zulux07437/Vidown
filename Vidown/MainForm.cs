@@ -103,6 +103,7 @@ namespace Vidown
             catch (Exception ex)
             {
                 ChangeStatusText(ex.Message);
+                Button_Start.Enabled = true;
             }
         }
         private void TextBox_Artist_TextChanged(object sender, EventArgs e)
