@@ -59,18 +59,21 @@ namespace Vidown
             Button_Get.Enabled = false;
             ChangeStatusText("Getting...");
 
-            if (await f.GetVideo(TextBox_VideoID.Text) == false) // If it fails
+            if (await f.GetVideo(TextBox_VideoID.Text) != false)
+            {
+                foreach (var add in f.Qualities)
+                    ComboBox_Quality.Items.Add(add);
+
+                ChangeStatusText("Already got");
+                Button_Get.Enabled = true;
+                Button_Start.Enabled = true;
+            }
+            else // If it fails
             {
                 ChangeStatusText("Error");
                 Button_Get.Enabled = true;
                 return;
             }
-            foreach (var add in f.Qualities)
-                ComboBox_Quality.Items.Add(add);
-
-            ChangeStatusText("Already got");
-            Button_Get.Enabled = true;
-            Button_Start.Enabled = true;
         }
         private async void Button_Start_Click(object sender, EventArgs e)
         {
