@@ -45,13 +45,13 @@ namespace Vidown
 
         private void MenuStrip_Help_AboutOfThis_Click(object sender, EventArgs e)
         {
-            Forms.AboutOfThis at = new();
-            at.ShowDialog();
+            Forms.AboutOfThis form = new();
+            form.ShowDialog();
         }
         private void MenuStrip_File_Settings_Click(object sender, EventArgs e)
         {
-            Forms.Settings s = new();
-            s.ShowDialog();
+            Forms.Settings form = new();
+            form.ShowDialog();
         }
 
         private async void Button_Get_Click(object sender, EventArgs e)
@@ -78,14 +78,14 @@ namespace Vidown
             {
                 Button_Start.Enabled = false;
                 ChangeStatusText("Starting...");
-                string inputName = "input.webm";
+                string inputName = null;
 
                 Progress<double> progress = new(Progress_OnProgressChanged);
-                if (extension == Functions.Extensions.MP3 || extension == Functions.Extensions.WebmAudio || true)
+                if (extension == Functions.Extensions.OGG || extension == Functions.Extensions.MP3)
                 {
                     inputName = await f.DownloadAudio(path, progress);
                 }
-                else if (extension == Functions.Extensions.MP4 || extension == Functions.Extensions.WebmVideo)
+                else if (extension == Functions.Extensions.WebmVideo || extension == Functions.Extensions.MP4)
                 {
                     inputName = await f.DownloadVideo(path, ComboBox_Quality.Text, progress);
                 }
@@ -94,10 +94,9 @@ namespace Vidown
                     throw new Exception("Error");
                 }
 
-                ffmpeg.ExtensionConversion($@"{path}\{inputName}", $@"{path}\{artistName} - {titleName}.mp3");
+                ffmpeg.ExtensionConversion($@"{path}\{inputName}", $@"{path}\{artistName} - {titleName}", extension);
                 System.IO.File.Delete($@"{path}\{inputName}");
 
-                ChangeStatusText("Complete");
                 InitializeInstances();
             }
             catch (Exception ex)
@@ -106,33 +105,48 @@ namespace Vidown
                 Button_Start.Enabled = true;
             }
         }
+
         private void TextBox_Artist_TextChanged(object sender, EventArgs e)
         {
             artistName = TextBox_Artist.Text;
-            UpdateFileNameLabel();
         }
         private void TextBox_Title_TextChanged(object sender, EventArgs e)
         {
             titleName = TextBox_Title.Text;
-            UpdateFileNameLabel();
         }
-        private void UpdateFileNameLabel()
-        {
-            Label_FileName.Text = $"{artistName} - {titleName}";
-        }
+
         private void Progress_OnProgressChanged(double count)
         {
             StatusStrip_ProgressBar.Value = (int)(count * 100); // Multiply by 100 because the highest is 1
             ChangeStatusText("Downloading: " + ((int)(count * 100)).ToString() + "%");
         }
-        private void ChangeStatusText(string text)
+
+        private void RadioButton_Extensions_CheckedChanged(object sender, EventArgs e)
         {
-            StatusStrip_Status.Text = text;
+            if (RadioButton_OGG.Checked)
+                extension = Functions.Extensions.OGG;
+            else if (RadioButton_WebmVideo.Checked)
+                extension = Functions.Extensions.WebmVideo;
+            else if (RadioButton_MP3.Checked)
+                extension = Functions.Extensions.MP3;
+            else if (RadioButton_MP4.Checked)
+                extension = Functions.Extensions.MP4;
         }
+
+        /***
+         * 
+         * Methods
+         * 
+         ***/
         private void InitializeInstances()
         {
             f = new();
             ComboBox_Quality.Items.Clear();
+            ChangeStatusText("OK");
+        }
+        private void ChangeStatusText(string text)
+        {
+            StatusStrip_Status.Text = text;
         }
     }
 }

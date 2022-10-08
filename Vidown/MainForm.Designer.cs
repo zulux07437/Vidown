@@ -41,13 +41,12 @@ namespace Vidown
             this.StatusStrip_ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.RadioButton_MP3 = new System.Windows.Forms.RadioButton();
             this.RadioButton_MP4 = new System.Windows.Forms.RadioButton();
-            this.RadioButton_WebmAudio = new System.Windows.Forms.RadioButton();
+            this.RadioButton_OGG = new System.Windows.Forms.RadioButton();
             this.GroupBox_FileExtension = new System.Windows.Forms.GroupBox();
             this.ComboBox_Quality = new System.Windows.Forms.ComboBox();
             this.RadioButton_WebmVideo = new System.Windows.Forms.RadioButton();
             this.Button_Start = new System.Windows.Forms.Button();
             this.GroupBox_FileInfo = new System.Windows.Forms.GroupBox();
-            this.Label_FileName = new System.Windows.Forms.Label();
             this.TextBox_Artist = new System.Windows.Forms.TextBox();
             this.TextBox_Title = new System.Windows.Forms.TextBox();
             this.Label_Artist = new System.Windows.Forms.Label();
@@ -148,35 +147,38 @@ namespace Vidown
             // 
             this.RadioButton_MP3.AutoSize = true;
             this.RadioButton_MP3.Checked = true;
-            this.RadioButton_MP3.Location = new System.Drawing.Point(143, 22);
+            this.RadioButton_MP3.Location = new System.Drawing.Point(62, 22);
             this.RadioButton_MP3.Name = "RadioButton_MP3";
             this.RadioButton_MP3.Size = new System.Drawing.Size(49, 19);
             this.RadioButton_MP3.TabIndex = 6;
             this.RadioButton_MP3.TabStop = true;
             this.RadioButton_MP3.Text = "MP3";
             this.RadioButton_MP3.UseVisualStyleBackColor = true;
+            this.RadioButton_MP3.CheckedChanged += new System.EventHandler(this.RadioButton_Extensions_CheckedChanged);
             // 
             // RadioButton_MP4
             // 
             this.RadioButton_MP4.AutoSize = true;
-            this.RadioButton_MP4.Location = new System.Drawing.Point(157, 47);
+            this.RadioButton_MP4.Location = new System.Drawing.Point(117, 22);
             this.RadioButton_MP4.Name = "RadioButton_MP4";
             this.RadioButton_MP4.Size = new System.Drawing.Size(49, 19);
             this.RadioButton_MP4.TabIndex = 7;
             this.RadioButton_MP4.TabStop = true;
             this.RadioButton_MP4.Text = "MP4";
             this.RadioButton_MP4.UseVisualStyleBackColor = true;
+            this.RadioButton_MP4.CheckedChanged += new System.EventHandler(this.RadioButton_Extensions_CheckedChanged);
             // 
-            // RadioButton_WebmAudio
+            // RadioButton_OGG
             // 
-            this.RadioButton_WebmAudio.AutoSize = true;
-            this.RadioButton_WebmAudio.Location = new System.Drawing.Point(6, 22);
-            this.RadioButton_WebmAudio.Name = "RadioButton_WebmAudio";
-            this.RadioButton_WebmAudio.Size = new System.Drawing.Size(131, 19);
-            this.RadioButton_WebmAudio.TabIndex = 8;
-            this.RadioButton_WebmAudio.TabStop = true;
-            this.RadioButton_WebmAudio.Text = "Webm (Audio Only)";
-            this.RadioButton_WebmAudio.UseVisualStyleBackColor = true;
+            this.RadioButton_OGG.AutoSize = true;
+            this.RadioButton_OGG.Location = new System.Drawing.Point(6, 22);
+            this.RadioButton_OGG.Name = "RadioButton_OGG";
+            this.RadioButton_OGG.Size = new System.Drawing.Size(50, 19);
+            this.RadioButton_OGG.TabIndex = 8;
+            this.RadioButton_OGG.TabStop = true;
+            this.RadioButton_OGG.Text = "OGG";
+            this.RadioButton_OGG.UseVisualStyleBackColor = true;
+            this.RadioButton_OGG.CheckedChanged += new System.EventHandler(this.RadioButton_Extensions_CheckedChanged);
             // 
             // GroupBox_FileExtension
             // 
@@ -185,7 +187,7 @@ namespace Vidown
             | System.Windows.Forms.AnchorStyles.Right)));
             this.GroupBox_FileExtension.Controls.Add(this.ComboBox_Quality);
             this.GroupBox_FileExtension.Controls.Add(this.RadioButton_WebmVideo);
-            this.GroupBox_FileExtension.Controls.Add(this.RadioButton_WebmAudio);
+            this.GroupBox_FileExtension.Controls.Add(this.RadioButton_OGG);
             this.GroupBox_FileExtension.Controls.Add(this.RadioButton_MP4);
             this.GroupBox_FileExtension.Controls.Add(this.RadioButton_MP3);
             this.GroupBox_FileExtension.Location = new System.Drawing.Point(12, 56);
@@ -214,6 +216,7 @@ namespace Vidown
             this.RadioButton_WebmVideo.TabStop = true;
             this.RadioButton_WebmVideo.Text = "Webm (Audio x Video)\r\n";
             this.RadioButton_WebmVideo.UseVisualStyleBackColor = true;
+            this.RadioButton_WebmVideo.CheckedChanged += new System.EventHandler(this.RadioButton_Extensions_CheckedChanged);
             // 
             // Button_Start
             // 
@@ -232,7 +235,6 @@ namespace Vidown
             this.GroupBox_FileInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.GroupBox_FileInfo.Controls.Add(this.Label_FileName);
             this.GroupBox_FileInfo.Controls.Add(this.TextBox_Artist);
             this.GroupBox_FileInfo.Controls.Add(this.TextBox_Title);
             this.GroupBox_FileInfo.Controls.Add(this.Label_Artist);
@@ -243,15 +245,6 @@ namespace Vidown
             this.GroupBox_FileInfo.TabIndex = 11;
             this.GroupBox_FileInfo.TabStop = false;
             this.GroupBox_FileInfo.Text = "File Info";
-            // 
-            // Label_FileName
-            // 
-            this.Label_FileName.AutoSize = true;
-            this.Label_FileName.Location = new System.Drawing.Point(6, 140);
-            this.Label_FileName.Name = "Label_FileName";
-            this.Label_FileName.Size = new System.Drawing.Size(18, 15);
-            this.Label_FileName.TabIndex = 4;
-            this.Label_FileName.Text = " - ";
             // 
             // TextBox_Artist
             // 
@@ -334,7 +327,7 @@ namespace Vidown
         private System.Windows.Forms.ToolStripProgressBar StatusStrip_ProgressBar;
         private System.Windows.Forms.RadioButton RadioButton_MP3;
         private System.Windows.Forms.RadioButton RadioButton_MP4;
-        private System.Windows.Forms.RadioButton RadioButton_WebmAudio;
+        private System.Windows.Forms.RadioButton RadioButton_OGG;
         private System.Windows.Forms.GroupBox GroupBox_FileExtension;
         private System.Windows.Forms.RadioButton RadioButton_WebmVideo;
         private System.Windows.Forms.ComboBox ComboBox_Quality;
@@ -344,7 +337,6 @@ namespace Vidown
         private System.Windows.Forms.Label Label_Artist;
         private System.Windows.Forms.TextBox TextBox_Artist;
         private System.Windows.Forms.TextBox TextBox_Title;
-        private System.Windows.Forms.Label Label_FileName;
     }
 }
 

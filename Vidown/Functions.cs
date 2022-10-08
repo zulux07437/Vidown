@@ -46,7 +46,7 @@ namespace Vidown
             #endregion
         }
 
-        public async Task<string> DownloadVideo(string path, string quality = "720p", IProgress<double> progress = null)
+        public async Task<string> DownloadVideo(string path, string quality, IProgress<double> progress = null)
         {
             string inputName = null;
             try
@@ -103,7 +103,7 @@ namespace Vidown
         }
         public enum Extensions
         {
-            WebmAudio, WebmVideo, MP3, MP4
+            OGG, WebmVideo, MP3, MP4
         }
     }
 }
