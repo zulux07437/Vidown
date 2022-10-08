@@ -64,7 +64,7 @@ namespace Vidown.Forms
             this.LinkLabel_GitHub.Text = "GitHub";
             this.LinkLabel_GitHub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_GitHub_LinkClicked);
             // 
-            // AboutThis
+            // AboutOfThis
             // 
             this.AcceptButton = this.Button_OK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -76,8 +76,9 @@ namespace Vidown.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "AboutThis";
+            this.Name = "AboutOfThis";
             this.Text = "About of this";
+            this.Load += new System.EventHandler(this.AboutOfThis_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

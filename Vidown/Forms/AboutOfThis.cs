@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vidown.Common;
 
 namespace Vidown.Forms
 {
@@ -26,6 +27,11 @@ namespace Vidown.Forms
         {
             LinkLabel_GitHub.LinkVisited = true;
             System.Diagnostics.Process.Start(@"https://github.com/zulux07437/Vidown");
+        }
+
+        private void AboutOfThis_Load(object sender, EventArgs e)
+        {
+            Label_About.Text = $"{Application.ProductName}_{Application.ProductVersion}\n{Informations.Copyright}";
         }
     }
 }
