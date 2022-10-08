@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Vidown.Wrapper;
+using Vidown.Properties;
 
 namespace Vidown
 {
@@ -19,7 +20,6 @@ namespace Vidown
         private readonly static bool IsDebug = false;
 #endif
         private Functions f = new();
-        private readonly static string path = @$"{System.IO.Directory.GetCurrentDirectory()}\bin";
         private static string artistName = null;
         private static string titleName = null;
         private static Functions.Extensions extension;
@@ -74,11 +74,16 @@ namespace Vidown
         }
         private async void Button_Start_Click(object sender, EventArgs e)
         {
+            ChangeStatusText("Starting...");
+            Button_Start.Enabled = false;
             try
             {
-                Button_Start.Enabled = false;
-                ChangeStatusText("Starting...");
                 string inputName = null;
+                string path = Settings.Default.OutputPath;
+                if (string.IsNullOrEmpty(path))
+                {
+                    path = $@"{System.IO.Directory.GetCurrentDirectory()}";
+                }
 
                 Progress<double> progress = new(Progress_OnProgressChanged);
                 if (extension == Functions.Extensions.OGG || extension == Functions.Extensions.MP3)
@@ -89,6 +94,7 @@ namespace Vidown
                 {
                     inputName = await f.DownloadVideo(path, ComboBox_Quality.Text, progress);
                 }
+
                 if (inputName == null) // If it fails
                 {
                     throw new Exception("Error");
@@ -101,8 +107,8 @@ namespace Vidown
             }
             catch (Exception ex)
             {
-                ChangeStatusText(ex.Message);
                 Button_Start.Enabled = true;
+                ChangeStatusText(ex.Message);
             }
         }
 
