@@ -86,22 +86,24 @@ namespace Vidown
                 }
 
                 Progress<double> progress = new(Progress_OnProgressChanged);
-                if (extension == Functions.Extensions.OGG || extension == Functions.Extensions.MP3)
+                if (extension is Functions.Extensions.OGG or Functions.Extensions.MP3)
                 {
                     inputName = await f.DownloadAudio(path, progress);
                 }
-                else if (extension == Functions.Extensions.WebmVideo || extension == Functions.Extensions.MP4)
+                else if (extension is Functions.Extensions.WebmVideo or Functions.Extensions.MP4)
                 {
                     inputName = await f.DownloadVideo(path, ComboBox_Quality.Text, progress);
                 }
 
-                if (inputName == null) // If it fails
+                if (inputName != null)
+                {
+                    ffmpeg.ExtensionConversion($@"{path}\{inputName}", $@"{path}\{artistName} - {titleName}", extension);
+                    System.IO.File.Delete($@"{path}\{inputName}");
+                }
+                else // If it fails
                 {
                     throw new Exception("Error");
                 }
-
-                ffmpeg.ExtensionConversion($@"{path}\{inputName}", $@"{path}\{artistName} - {titleName}", extension);
-                System.IO.File.Delete($@"{path}\{inputName}");
 
                 InitializeInstances();
             }

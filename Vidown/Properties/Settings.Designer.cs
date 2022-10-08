@@ -25,7 +25,7 @@ namespace Vidown.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{0}\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string OutputPath {
             get {
                 return ((string)(this["OutputPath"]));
