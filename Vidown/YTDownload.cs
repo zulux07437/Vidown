@@ -9,7 +9,7 @@ using Vidown.Wrapper;
 
 namespace Vidown
 {
-    public class YouTubeDonwload
+    public class YTDownload
     {
         private YoutubeClient client = new();
         private StreamManifest manifest;

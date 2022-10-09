@@ -19,10 +19,10 @@ namespace Vidown
 #else // Release
         private static readonly bool IsDebug = false;
 #endif
-        private YouTubeDonwload ytdown = new();
+        private YTDownload ytdown = new();
         private static string artistName = null;
         private static string titleName = null;
-        private static YouTubeDonwload.Extensions extension = YouTubeDonwload.Extensions.MP3;
+        private static YTDownload.Extensions extension = YTDownload.Extensions.MP3;
 
         public MainForm()
         {
@@ -89,11 +89,11 @@ namespace Vidown
                 }
 
                 Progress<double> progress = new(Progress_OnProgressChanged);
-                if (extension is YouTubeDonwload.Extensions.OGG or YouTubeDonwload.Extensions.MP3)
+                if (extension is YTDownload.Extensions.OGG or YTDownload.Extensions.MP3)
                 {
                     inputName = await ytdown.DownloadAudio(path, progress);
                 }
-                else if (extension is YouTubeDonwload.Extensions.WebmVideo or YouTubeDonwload.Extensions.MP4)
+                else if (extension is YTDownload.Extensions.WebmVideo or YTDownload.Extensions.MP4)
                 {
                     inputName = await ytdown.DownloadVideo(path, ComboBox_Quality.Text, progress);
                 }
@@ -135,13 +135,13 @@ namespace Vidown
         private void RadioButton_Extensions_CheckedChanged(object sender, EventArgs e)
         {
             if (RadioButton_OGG.Checked)
-                extension = YouTubeDonwload.Extensions.OGG;
+                extension = YTDownload.Extensions.OGG;
             else if (RadioButton_WebmVideo.Checked)
-                extension = YouTubeDonwload.Extensions.WebmVideo;
+                extension = YTDownload.Extensions.WebmVideo;
             else if (RadioButton_MP3.Checked)
-                extension = YouTubeDonwload.Extensions.MP3;
+                extension = YTDownload.Extensions.MP3;
             else if (RadioButton_MP4.Checked)
-                extension = YouTubeDonwload.Extensions.MP4;
+                extension = YTDownload.Extensions.MP4;
         }
 
         /***
@@ -150,7 +150,7 @@ namespace Vidown
          * 
          ***/
         /// <summary>
-        /// Initialize Instance of YouTubeDownload Class and Clear ComboBox
+        /// Initialize Instance of YTDownload Class and Clear ComboBox
         /// </summary>
         private void InitializeInstances()
         {

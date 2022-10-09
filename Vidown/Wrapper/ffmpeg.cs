@@ -18,16 +18,16 @@ namespace Vidown.Wrapper
         /// <param name="input">Input</param>
         /// <param name="output">Output</param>
         /// <param name="outputExtension">Output Extension</param>
-        public static void ExtensionConversion(string input, string output, YouTubeDonwload.Extensions outputExtension)
+        public static void ExtensionConversion(string input, string output, YTDownload.Extensions outputExtension)
         {
             string extensionText = null;
-            if (outputExtension == YouTubeDonwload.Extensions.OGG)
+            if (outputExtension == YTDownload.Extensions.OGG)
                 extensionText = "ogg";
-            else if (outputExtension == YouTubeDonwload.Extensions.WebmVideo)
+            else if (outputExtension == YTDownload.Extensions.WebmVideo)
                 extensionText = "webm";
-            else if (outputExtension == YouTubeDonwload.Extensions.MP3)
+            else if (outputExtension == YTDownload.Extensions.MP3)
                 extensionText = "mp3";
-            else if (outputExtension == YouTubeDonwload.Extensions.MP4)
+            else if (outputExtension == YTDownload.Extensions.MP4)
                 extensionText = "mp4";
 
             ProcessStartInfo psi = new()
