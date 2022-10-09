@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 using Vidown.Wrapper;
 using Vidown.Properties;
@@ -24,9 +18,11 @@ namespace Vidown
         private static string titleName = null;
         private static YTDownload.Extensions extension = YTDownload.Extensions.MP3;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MainForm()
         {
-            // Constructor
             InitializeComponent();
         }
         private void MainForm_Load(object sender, EventArgs e)
@@ -43,65 +39,62 @@ namespace Vidown
                 e.Cancel = true;
         }
 
-        private void MenuStrip_Help_AboutOfThis_Click(object sender, EventArgs e)
-        {
-            Forms.AboutOfThis form = new();
-            form.ShowDialog();
-        }
-        private void MenuStrip_File_Settings_Click(object sender, EventArgs e)
-        {
-            Forms.Settings form = new();
-            form.ShowDialog();
-        }
-
         private async void Button_Get_Click(object sender, EventArgs e)
         {
-            Button_Get.Enabled = false;
             ChangeStatusText("Getting...");
+            Button_Get.Enabled = false;
 
-            if (await ytdown.GetVideo(TextBox_VideoID.Text) == true)
+            try
             {
-                foreach (var add in ytdown.Qualities)
-                    ComboBox_Quality.Items.Add(add);
+                if (await ytdown.GetVideo(TextBox_VideoID.Text) == true)
+                {
+                    foreach (var add in ytdown.Qualities)
+                        ComboBox_Quality.Items.Add(add);
 
-                ChangeStatusText("Already got");
-                Button_Get.Enabled = true;
-                Button_Start.Enabled = true;
+                    ChangeStatusText("Already got");
+                    Button_Start.Enabled = true;
+                }
+                else // If it fails
+                {
+                    throw new Exception("Error");
+                }
             }
-            else // If it fails
+            catch (Exception ex)
             {
-                ChangeStatusText("Error");
+                ChangeStatusText(ex.Message);
+            }
+            finally
+            {
                 Button_Get.Enabled = true;
-                return;
             }
         }
         private async void Button_Start_Click(object sender, EventArgs e)
         {
             ChangeStatusText("Starting...");
             Button_Start.Enabled = false;
+
+            Progress<double> progress = new(Progress_OnProgressChanged);
+            string outputName = null;
+            string path = Settings.Default.OutputPath;
+
+            if (string.IsNullOrEmpty(path))
+                path = $@"{System.IO.Directory.GetCurrentDirectory()}";
+
             try
             {
-                string inputName = null;
-                string path = Settings.Default.OutputPath;
-                if (string.IsNullOrEmpty(path))
-                {
-                    path = $@"{System.IO.Directory.GetCurrentDirectory()}";
-                }
-
-                Progress<double> progress = new(Progress_OnProgressChanged);
                 if (extension is YTDownload.Extensions.OGG or YTDownload.Extensions.MP3)
                 {
-                    inputName = await ytdown.DownloadAudio(path, progress);
+                    outputName = await ytdown.DownloadAudio(path, progress);
                 }
                 else if (extension is YTDownload.Extensions.WebmVideo or YTDownload.Extensions.MP4)
                 {
-                    inputName = await ytdown.DownloadVideo(path, ComboBox_Quality.Text, progress);
+                    outputName = await ytdown.DownloadVideo(path, ComboBox_Quality.Text, progress);
                 }
 
-                if (inputName != null)
+                if (outputName != null)
                 {
-                    ffmpeg.ExtensionConversion($@"{path}\{inputName}", $@"{path}\{artistName} - {titleName}", extension);
-                    System.IO.File.Delete($@"{path}\{inputName}");
+                    ffmpeg.ExtensionConversion($@"{path}\{outputName}", $@"{path}\{artistName} - {titleName}", extension);
+                    System.IO.File.Delete($@"{path}\{outputName}");
                 }
                 else // If it fails
                 {
@@ -116,22 +109,11 @@ namespace Vidown
                 ChangeStatusText(ex.Message);
             }
         }
-
-        private void TextBox_Artist_TextChanged(object sender, EventArgs e)
-        {
-            artistName = TextBox_Artist.Text;
-        }
-        private void TextBox_Title_TextChanged(object sender, EventArgs e)
-        {
-            titleName = TextBox_Title.Text;
-        }
-
         private void Progress_OnProgressChanged(double count)
         {
             StatusStrip_ProgressBar.Value = (int)(count * 100); // Multiply by 100 because the highest is 1
             ChangeStatusText("Downloading: " + ((int)(count * 100)).ToString() + "%");
         }
-
         private void RadioButton_Extensions_CheckedChanged(object sender, EventArgs e)
         {
             if (RadioButton_OGG.Checked)
@@ -142,6 +124,26 @@ namespace Vidown
                 extension = YTDownload.Extensions.MP3;
             else if (RadioButton_MP4.Checked)
                 extension = YTDownload.Extensions.MP4;
+        }
+
+        private void TextBox_Artist_TextChanged(object sender, EventArgs e)
+        {
+            artistName = TextBox_Artist.Text;
+        }
+        private void TextBox_Title_TextChanged(object sender, EventArgs e)
+        {
+            titleName = TextBox_Title.Text;
+        }
+
+        private void MenuStrip_Help_AboutOfThis_Click(object sender, EventArgs e)
+        {
+            Forms.AboutOfThis form = new();
+            form.ShowDialog();
+        }
+        private void MenuStrip_File_Settings_Click(object sender, EventArgs e)
+        {
+            Forms.Settings form = new();
+            form.ShowDialog();
         }
 
         /***
