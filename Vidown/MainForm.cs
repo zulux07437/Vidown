@@ -78,7 +78,7 @@ namespace Vidown
             string path = Settings.Default.OutputPath;
 
             if (string.IsNullOrEmpty(path))
-                path = $@"{System.IO.Directory.GetCurrentDirectory()}";
+                path = $@"{Directory.GetCurrentDirectory()}";
 
             try
             {
@@ -94,7 +94,7 @@ namespace Vidown
                 if (outputName != null)
                 {
                     ffmpeg.ExtensionConversion($@"{path}\{outputName}", $@"{path}\{artistName} - {titleName}", extension);
-                    System.IO.File.Delete($@"{path}\{outputName}");
+                    File.Delete($@"{path}\{outputName}");
                 }
                 else // If it fails
                 {

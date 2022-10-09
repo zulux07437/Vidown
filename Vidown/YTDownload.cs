@@ -90,7 +90,7 @@ namespace Vidown
         /// <returns></returns>
         public async Task<string> DownloadAudio(string path, IProgress<double> progress = null)
         {
-            string inputName = null;
+            string inputName;
             try
             {
                 IStreamInfo stream = manifest.GetAudioOnlyStreams().GetWithHighestBitrate();
