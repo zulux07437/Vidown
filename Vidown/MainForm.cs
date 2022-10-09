@@ -15,14 +15,14 @@ namespace Vidown
     public partial class MainForm : Form
     {
 #if DEBUG
-        private readonly static bool IsDebug = true;
+        private static readonly bool IsDebug = true;
 #else // Release
-        private readonly static bool IsDebug = false;
+        private static readonly bool IsDebug = false;
 #endif
         private Functions f = new();
         private static string artistName = null;
         private static string titleName = null;
-        private static Functions.Extensions extension;
+        private static Functions.Extensions extension = Functions.Extensions.MP3;
 
         public MainForm()
         {
