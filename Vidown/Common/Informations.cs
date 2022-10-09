@@ -13,8 +13,8 @@ namespace Vidown.Common
     /// </summary>
     public static class Informations
     {
-        private static readonly FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
-        public static readonly string Copyright = fvi.LegalCopyright;
+        private static readonly FileVersionInfo s_fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+        public static readonly string Copyright = s_fvi.LegalCopyright;
         public static readonly string Creator = "zulux07437";
     }
 }

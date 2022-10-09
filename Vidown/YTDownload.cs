@@ -11,8 +11,8 @@ namespace Vidown
 {
     public class YTDownload
     {
-        private YoutubeClient client = new();
-        private StreamManifest manifest;
+        private YoutubeClient _client = new();
+        private StreamManifest _manifest;
         public VideoQuality[] Qualities = null;
 
         /// <summary>
@@ -24,8 +24,8 @@ namespace Vidown
         {
             try
             {
-                manifest = await client.Videos.Streams.GetManifestAsync(videoid);
-                Qualities = manifest.GetVideoStreams().Select(s => s.VideoQuality).Distinct().ToArray();
+                _manifest = await _client.Videos.Streams.GetManifestAsync(videoid);
+                Qualities = _manifest.GetVideoStreams().Select(s => s.VideoQuality).Distinct().ToArray();
 
                 return true;
             }
@@ -57,9 +57,9 @@ namespace Vidown
             string inputName = null;
             try
             {
-                MuxedStreamInfo stream = manifest.GetMuxedStreams().First(s => s.VideoQuality.Label == quality);
+                MuxedStreamInfo stream = _manifest.GetMuxedStreams().First(s => s.VideoQuality.Label == quality);
                 inputName = $"input.{stream.Container}";
-                await client.Videos.Streams.DownloadAsync(stream, path + @"\" + inputName, progress);
+                await _client.Videos.Streams.DownloadAsync(stream, path + @"\" + inputName, progress);
 
                 return inputName;
             }
@@ -93,9 +93,9 @@ namespace Vidown
             string inputName;
             try
             {
-                IStreamInfo stream = manifest.GetAudioOnlyStreams().GetWithHighestBitrate();
+                IStreamInfo stream = _manifest.GetAudioOnlyStreams().GetWithHighestBitrate();
                 inputName = $"input.{stream.Container}";
-                await client.Videos.Streams.DownloadAsync(stream, path + @"\" + inputName, progress);
+                await _client.Videos.Streams.DownloadAsync(stream, path + @"\" + inputName, progress);
 
                 return inputName;
             }

@@ -9,14 +9,14 @@ namespace Vidown
     public partial class MainForm : Form
     {
 #if DEBUG
-        private static readonly bool IsDebug = true;
+        private static readonly bool s_IsDebug = true;
 #else // Release
-        private static readonly bool IsDebug = false;
+        private static readonly bool s_IsDebug = false;
 #endif
-        private YTDownload ytdown = new();
-        private static string artistName = null;
-        private static string titleName = null;
-        private static YTDownload.Extensions extension = YTDownload.Extensions.MP3;
+        private YTDownload _ytdown = new();
+        private static string s_artistName = null;
+        private static string s_titleName = null;
+        private static YTDownload.Extensions s_extension = YTDownload.Extensions.MP3;
 
         /// <summary>
         /// Constructor
@@ -31,7 +31,7 @@ namespace Vidown
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (IsDebug) return; // If it's debug, Quit
+            if (s_IsDebug) return; // If it's debug, Quit
 
             DialogResult result = MessageBox.Show("Are you sure you want to close?", Application.ProductName,
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -46,9 +46,9 @@ namespace Vidown
 
             try
             {
-                if (await ytdown.GetVideo(TextBox_VideoID.Text) == true)
+                if (await _ytdown.GetVideo(TextBox_VideoID.Text) == true)
                 {
-                    foreach (var add in ytdown.Qualities)
+                    foreach (var add in _ytdown.Qualities)
                         ComboBox_Quality.Items.Add(add);
 
                     ChangeStatusText("Already got");
@@ -82,18 +82,18 @@ namespace Vidown
 
             try
             {
-                if (extension is YTDownload.Extensions.OGG or YTDownload.Extensions.MP3)
+                if (s_extension is YTDownload.Extensions.OGG or YTDownload.Extensions.MP3)
                 {
-                    outputName = await ytdown.DownloadAudio(path, progress);
+                    outputName = await _ytdown.DownloadAudio(path, progress);
                 }
-                else if (extension is YTDownload.Extensions.WebmVideo or YTDownload.Extensions.MP4)
+                else if (s_extension is YTDownload.Extensions.WebmVideo or YTDownload.Extensions.MP4)
                 {
-                    outputName = await ytdown.DownloadVideo(path, ComboBox_Quality.Text, progress);
+                    outputName = await _ytdown.DownloadVideo(path, ComboBox_Quality.Text, progress);
                 }
 
                 if (outputName != null)
                 {
-                    ffmpeg.ExtensionConversion($@"{path}\{outputName}", $@"{path}\{artistName} - {titleName}", extension);
+                    ffmpeg.ExtensionConversion($@"{path}\{outputName}", $@"{path}\{s_artistName} - {s_titleName}", s_extension);
                     File.Delete($@"{path}\{outputName}");
                 }
                 else // If it fails
@@ -117,22 +117,22 @@ namespace Vidown
         private void RadioButton_Extensions_CheckedChanged(object sender, EventArgs e)
         {
             if (RadioButton_OGG.Checked)
-                extension = YTDownload.Extensions.OGG;
+                s_extension = YTDownload.Extensions.OGG;
             else if (RadioButton_WebmVideo.Checked)
-                extension = YTDownload.Extensions.WebmVideo;
+                s_extension = YTDownload.Extensions.WebmVideo;
             else if (RadioButton_MP3.Checked)
-                extension = YTDownload.Extensions.MP3;
+                s_extension = YTDownload.Extensions.MP3;
             else if (RadioButton_MP4.Checked)
-                extension = YTDownload.Extensions.MP4;
+                s_extension = YTDownload.Extensions.MP4;
         }
 
         private void TextBox_Artist_TextChanged(object sender, EventArgs e)
         {
-            artistName = TextBox_Artist.Text;
+            s_artistName = TextBox_Artist.Text;
         }
         private void TextBox_Title_TextChanged(object sender, EventArgs e)
         {
-            titleName = TextBox_Title.Text;
+            s_titleName = TextBox_Title.Text;
         }
 
         private void MenuStrip_Help_AboutOfThis_Click(object sender, EventArgs e)
@@ -156,7 +156,7 @@ namespace Vidown
         /// </summary>
         private void InitializeInstances()
         {
-            ytdown = new();
+            _ytdown = new();
             ComboBox_Quality.Items.Clear();
             ChangeStatusText("OK");
         }
