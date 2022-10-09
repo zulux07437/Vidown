@@ -59,7 +59,7 @@ namespace Vidown
             Button_Get.Enabled = false;
             ChangeStatusText("Getting...");
 
-            if (await ytdown.GetVideo(TextBox_VideoID.Text) != false)
+            if (await ytdown.GetVideo(TextBox_VideoID.Text) == true)
             {
                 foreach (var add in ytdown.Qualities)
                     ComboBox_Quality.Items.Add(add);
