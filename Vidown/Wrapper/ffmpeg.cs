@@ -7,18 +7,27 @@ using System.Threading.Tasks;
 
 namespace Vidown.Wrapper
 {
+    /// <summary>
+    /// ffmpeg.exe Wrapper
+    /// </summary>
     public class ffmpeg
     {
-        public static void ExtensionConversion(string input, string output, Functions.Extensions outputExtension)
+        /// <summary>
+        /// Extension Conversion with ffmpeg.exe
+        /// </summary>
+        /// <param name="input">Input</param>
+        /// <param name="output">Output</param>
+        /// <param name="outputExtension">Output Extension</param>
+        public static void ExtensionConversion(string input, string output, YouTubeDonwload.Extensions outputExtension)
         {
             string extensionText = null;
-            if (outputExtension == Functions.Extensions.OGG)
+            if (outputExtension == YouTubeDonwload.Extensions.OGG)
                 extensionText = "ogg";
-            else if (outputExtension == Functions.Extensions.WebmVideo)
+            else if (outputExtension == YouTubeDonwload.Extensions.WebmVideo)
                 extensionText = "webm";
-            else if (outputExtension == Functions.Extensions.MP3)
+            else if (outputExtension == YouTubeDonwload.Extensions.MP3)
                 extensionText = "mp3";
-            else if (outputExtension == Functions.Extensions.MP4)
+            else if (outputExtension == YouTubeDonwload.Extensions.MP4)
                 extensionText = "mp4";
 
             ProcessStartInfo psi = new()

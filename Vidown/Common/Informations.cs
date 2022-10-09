@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Vidown.Common
 {
+    /// <summary>
+    /// Informations
+    /// </summary>
     public static class Informations
     {
         private static readonly FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);

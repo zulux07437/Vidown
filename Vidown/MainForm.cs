@@ -19,10 +19,10 @@ namespace Vidown
 #else // Release
         private static readonly bool IsDebug = false;
 #endif
-        private Functions f = new();
+        private YouTubeDonwload ytdown = new();
         private static string artistName = null;
         private static string titleName = null;
-        private static Functions.Extensions extension = Functions.Extensions.MP3;
+        private static YouTubeDonwload.Extensions extension = YouTubeDonwload.Extensions.MP3;
 
         public MainForm()
         {
@@ -59,9 +59,9 @@ namespace Vidown
             Button_Get.Enabled = false;
             ChangeStatusText("Getting...");
 
-            if (await f.GetVideo(TextBox_VideoID.Text) != false)
+            if (await ytdown.GetVideo(TextBox_VideoID.Text) != false)
             {
-                foreach (var add in f.Qualities)
+                foreach (var add in ytdown.Qualities)
                     ComboBox_Quality.Items.Add(add);
 
                 ChangeStatusText("Already got");
@@ -89,13 +89,13 @@ namespace Vidown
                 }
 
                 Progress<double> progress = new(Progress_OnProgressChanged);
-                if (extension is Functions.Extensions.OGG or Functions.Extensions.MP3)
+                if (extension is YouTubeDonwload.Extensions.OGG or YouTubeDonwload.Extensions.MP3)
                 {
-                    inputName = await f.DownloadAudio(path, progress);
+                    inputName = await ytdown.DownloadAudio(path, progress);
                 }
-                else if (extension is Functions.Extensions.WebmVideo or Functions.Extensions.MP4)
+                else if (extension is YouTubeDonwload.Extensions.WebmVideo or YouTubeDonwload.Extensions.MP4)
                 {
-                    inputName = await f.DownloadVideo(path, ComboBox_Quality.Text, progress);
+                    inputName = await ytdown.DownloadVideo(path, ComboBox_Quality.Text, progress);
                 }
 
                 if (inputName != null)
@@ -135,13 +135,13 @@ namespace Vidown
         private void RadioButton_Extensions_CheckedChanged(object sender, EventArgs e)
         {
             if (RadioButton_OGG.Checked)
-                extension = Functions.Extensions.OGG;
+                extension = YouTubeDonwload.Extensions.OGG;
             else if (RadioButton_WebmVideo.Checked)
-                extension = Functions.Extensions.WebmVideo;
+                extension = YouTubeDonwload.Extensions.WebmVideo;
             else if (RadioButton_MP3.Checked)
-                extension = Functions.Extensions.MP3;
+                extension = YouTubeDonwload.Extensions.MP3;
             else if (RadioButton_MP4.Checked)
-                extension = Functions.Extensions.MP4;
+                extension = YouTubeDonwload.Extensions.MP4;
         }
 
         /***
@@ -149,12 +149,20 @@ namespace Vidown
          * Methods
          * 
          ***/
+        /// <summary>
+        /// Initialize Instance of YouTubeDownload Class and Clear ComboBox
+        /// </summary>
         private void InitializeInstances()
         {
-            f = new();
+            ytdown = new();
             ComboBox_Quality.Items.Clear();
             ChangeStatusText("OK");
         }
+
+        /// <summary>
+        /// Change StatusStrip_Status.Text
+        /// </summary>
+        /// <param name="text">Text</param>
         private void ChangeStatusText(string text)
         {
             StatusStrip_Status.Text = text;

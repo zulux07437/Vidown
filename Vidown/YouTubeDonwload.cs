@@ -9,9 +9,9 @@ using Vidown.Wrapper;
 
 namespace Vidown
 {
-    public class Functions
+    public class YouTubeDonwload
     {
-        private YoutubeClient client;
+        private YoutubeClient client = new();
         private StreamManifest manifest;
         public VideoQuality[] Qualities = null;
 
@@ -24,7 +24,6 @@ namespace Vidown
         {
             try
             {
-                client = new();
                 manifest = await client.Videos.Streams.GetManifestAsync(videoid);
                 Qualities = manifest.GetVideoStreams().Select(s => s.VideoQuality).Distinct().ToArray();
 
@@ -46,6 +45,13 @@ namespace Vidown
             #endregion
         }
 
+        /// <summary>
+        /// Download YouTube Video
+        /// </summary>
+        /// <param name="path">Output Path</param>
+        /// <param name="quality">Video Quality</param>
+        /// <param name="progress">Progress</param>
+        /// <returns></returns>
         public async Task<string> DownloadVideo(string path, string quality, IProgress<double> progress = null)
         {
             string inputName = null;
@@ -76,6 +82,12 @@ namespace Vidown
             return null;
             #endregion
         }
+        /// <summary>
+        /// Download YouTube Video with Audio only
+        /// </summary>
+        /// <param name="path">Output Path</param>
+        /// <param name="progress">Progress</param>
+        /// <returns></returns>
         public async Task<string> DownloadAudio(string path, IProgress<double> progress = null)
         {
             string inputName = null;
@@ -101,6 +113,10 @@ namespace Vidown
             return null;
             #endregion
         }
+
+        /// <summary>
+        /// Extensions
+        /// </summary>
         public enum Extensions
         {
             OGG, WebmVideo, MP3, MP4

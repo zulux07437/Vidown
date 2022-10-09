@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Vidown.Wrapper
 {
+    /// <summary>
+    /// mp3gain Wrapper
+    /// </summary>
     public class mp3gain
     {
     }

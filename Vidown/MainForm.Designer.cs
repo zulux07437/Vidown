@@ -133,7 +133,7 @@ namespace Vidown
             // StatusStrip_Status
             // 
             this.StatusStrip_Status.Name = "StatusStrip_Status";
-            this.StatusStrip_Status.Size = new System.Drawing.Size(117, 17);
+            this.StatusStrip_Status.Size = new System.Drawing.Size(86, 17);
             this.StatusStrip_Status.Spring = true;
             this.StatusStrip_Status.Text = "Initial";
             this.StatusStrip_Status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
